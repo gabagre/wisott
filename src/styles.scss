@@ -1,0 +1,57 @@
+/* You can add global styles to this file, and also import other style files */
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import '~@angular/material/theming';
+
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Global styles
+.toolbar-fill {
+  flex: 1 1 auto;
+}
+
+// Global styles based on current theme
+@mixin base-component-themes($theme) {
+  // Extract whichever individual palettes you need from the theme.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  // Use mat-color to extract individual colors from a palette as necessary.
+  a {
+    color: mat-color($accent);
+    text-decoration: none;
+  }
+}
+
+// Themes
+
+$candy-primary: mat-palette($mat-indigo);
+$candy-accent:  mat-palette($mat-pink);
+$candy-warn:    mat-palette($mat-red); // warn palletes are optional (Defaults to red)
+// Create the theme object (a Sass map containing all of the palettes).
+$candy-theme: mat-light-theme($candy-primary, $candy-accent, $candy-warn);
+
+.candy-light-theme {
+  @include angular-material-theme($candy-theme);
+  @include base-component-themes($candy-theme);
+}
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+
+$unicorn-primary: mat-palette($mat-blue-grey);
+$unicorn-accent:  mat-palette($mat-amber);
+$unicorn-warn:    mat-palette($mat-deep-orange);
+
+$unicorn-theme:   mat-dark-theme($unicorn-primary, $unicorn-accent, $unicorn-warn);
+
+.unicorn-dark-theme {
+  @include angular-material-theme($unicorn-theme);
+  @include base-component-themes($unicorn-theme);
+}
+
+// Default theme
+@include angular-material-theme($unicorn-theme);
+@include base-component-themes($unicorn-theme);
